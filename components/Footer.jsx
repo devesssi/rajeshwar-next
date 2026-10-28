@@ -62,7 +62,7 @@ export default function Footer() {
             </p>
             <p className="flex items-center gap-2">
               <Mail className="h-4 w-4 text-primary shrink-0" />
-              <span>sales@rajeshwarinfotech.com</span>
+              <span>ashokcho2005@gmail.com</span>
             </p>
             <p className="flex items-center gap-2">
               <Phone className="h-4 w-4 text-primary shrink-0" />

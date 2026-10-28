@@ -128,7 +128,7 @@ export default async function AdminPage() {
 
       {/* Tabs Navigation for Products, Orders & Messages */}
       <Tabs defaultValue="products" className="space-y-6">
-        <TabsList className="bg-card/80 border border-border">
+        <TabsList className="bg-card/80 border border-border flex flex-wrap h-auto gap-1.5 p-1.5 w-full justify-start">
           <TabsTrigger value="products">Products ({prods.length})</TabsTrigger>
           <TabsTrigger value="orders">Orders ({orders.length})</TabsTrigger>
           <TabsTrigger value="add">Add New Product</TabsTrigger>

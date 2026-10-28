@@ -52,7 +52,7 @@ export default function ContactPage() {
                 <div>
                   <h4 className="font-bold text-foreground text-sm">Email Desk</h4>
                   <p className="text-xs text-muted-foreground mt-0.5">For formal purchase orders and RFQs</p>
-                  <p className="mt-1 font-mono text-xs text-foreground">sales@rajeshwarinfotech.com</p>
+                  <p className="mt-1 font-mono text-xs text-foreground">ashokcho2005@gmail.com</p>
                 </div>
               </div>
 

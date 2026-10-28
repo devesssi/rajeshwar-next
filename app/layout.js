@@ -5,6 +5,12 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Toaster } from '@/components/ui/sonner';
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#06100c',
+};
+
 export const metadata = {
   title: 'Rajeshwar Infotech – Computer Parts & Micro Components',
   description: 'Industrial and commercial supplier of certified computer hardware, laptop replacement parts, micro semiconductors, ICs and networking equipment.'
