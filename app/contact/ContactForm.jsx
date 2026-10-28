@@ -1,7 +1,6 @@
 'use client';
 import { useState, useTransition } from 'react';
 import { toast } from 'sonner';
-import { submitContactMessage } from './actions';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Send, CheckCircle2 } from 'lucide-react';
@@ -33,18 +32,23 @@ export default function ContactForm() {
 
     startTransition(async () => {
       try {
-        const res = await submitContactMessage(null, formData);
-        if (res.success) {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, phone: formData.get('phone')?.toString().trim(), message })
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
           setSubmitted(true);
-          toast.success(res.message || 'Your message has been received!');
-        } else if (res.errors) {
-          setErrors(res.errors);
+          toast.success(data.message || 'Your message has been received!');
+        } else if (data.errors) {
+          setErrors(data.errors);
           toast.error('Please fix the form errors.');
         } else {
-          toast.error(res.error || 'Could not send message.');
+          toast.error(data.error || 'Could not send message.');
         }
       } catch (err) {
-        toast.error('Network error. Please try again.');
+        toast.error('Connection error. Please verify your connection.');
       }
     });
   }

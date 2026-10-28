@@ -1,5 +1,6 @@
 import db from '@/lib/db';
 import { isAdmin } from '@/lib/admin';
+import { SignInButton } from '@clerk/nextjs';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -23,7 +24,7 @@ export const metadata = {
 export default async function AdminPage() {
   const authorized = await isAdmin();
 
-  // Requirement 8: Friendly "Access denied" screen for non-admins
+  // Access denied screen for non-admins / unauthenticated visitors
   if (!authorized) {
     return (
       <div className="py-20 max-w-md mx-auto text-center space-y-6 animate-fade-in">
@@ -31,9 +32,9 @@ export default async function AdminPage() {
           <ShieldAlert className="h-10 w-10" />
         </div>
         <div className="space-y-2">
-          <h1 className="text-3xl font-extrabold text-foreground">Access Denied</h1>
+          <h1 className="text-3xl font-extrabold text-foreground">Admin Portal Restricted</h1>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            This administrative dashboard is restricted. Please sign in with an email address registered in <code className="bg-secondary px-1.5 py-0.5 rounded text-xs font-mono">ADMIN_EMAILS</code>.
+            This dashboard is only accessible to authorized administrator accounts. Please sign in with an authorized email address.
           </p>
         </div>
         <div className="pt-2 flex justify-center gap-3">
@@ -42,6 +43,11 @@ export default async function AdminPage() {
               <ArrowLeft className="h-4 w-4" /> Back to Store
             </Button>
           </Link>
+          <SignInButton mode="modal">
+            <Button className="gap-2">
+              Sign In as Admin
+            </Button>
+          </SignInButton>
         </div>
       </div>
     );

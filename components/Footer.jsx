@@ -39,7 +39,6 @@ export default function Footer() {
             <ul className="space-y-2 text-xs text-muted-foreground">
               <li><Link href="/orders" className="hover:text-primary transition-colors">Track Orders</Link></li>
               <li><Link href="/cart" className="hover:text-primary transition-colors">Cart Details</Link></li>
-              <li><Link href="/admin" className="hover:text-primary transition-colors">Admin Dashboard</Link></li>
               <li>
                 <a
                   href="https://wa.me/919321009638"

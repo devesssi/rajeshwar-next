@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs';
+import { SignedIn, SignedOut, SignInButton, UserButton, useUser } from '@clerk/nextjs';
 import { useCart } from './CartProvider';
 import CartSheet from './CartSheet';
 import { Button } from '@/components/ui/button';
@@ -21,8 +21,15 @@ export default function Header() {
   const [cartOpen, setCartOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const { user, isSignedIn } = useUser();
 
   const count = items.reduce((s, i) => s + (i.qty || 1), 0);
+
+  const adminEmails = (
+    process.env.NEXT_PUBLIC_ADMIN_EMAILS || 'tiwaridevesh745@gmail.com, ashokcho2005@gmail.com'
+  ).toLowerCase().split(',').map(s => s.trim());
+  const userEmails = user?.emailAddresses?.map(e => e.emailAddress.toLowerCase()) || [];
+  const isAdminUser = isSignedIn && userEmails.some(e => adminEmails.includes(e));
 
   const navLinks = [
     { href: '/', label: 'Home', icon: Home },
@@ -30,8 +37,8 @@ export default function Header() {
     { href: '/about', label: 'About', icon: Info },
     { href: '/services', label: 'Services', icon: Wrench },
     { href: '/contact', label: 'Contact', icon: Phone },
-    { href: '/orders', label: 'My Orders', icon: PackageCheck },
-    { href: '/admin', label: 'Admin', icon: ShieldAlert },
+    ...(isSignedIn ? [{ href: '/orders', label: 'My Orders', icon: PackageCheck }] : []),
+    ...(isAdminUser ? [{ href: '/admin', label: 'Admin', icon: ShieldAlert }] : []),
   ];
 
   return (
